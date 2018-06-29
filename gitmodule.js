@@ -1,4 +1,7 @@
-module.exports = gitmodule
+module.exports = 
+    {   gitmodule : gitmodule,
+        getUserRepoCount : getUserRepoCount};
+
 var request = require("request");
 require("dotenv").config();
 
@@ -34,5 +37,10 @@ function initialize(path) {
 function gitmodule(userid) {
     path = userid+'/repos';
     var initializePromise = initialize(path);
+    return initializePromise;
+}
+
+function getUserRepoCount(userid){
+    var initializePromise = initialize(userid);
     return initializePromise;
 }

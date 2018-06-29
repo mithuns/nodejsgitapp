@@ -2,10 +2,10 @@ var http = require('http');
 var stack = require('stack');
 var creationix = require('creationix');
 var gitmodule = require('./gitmodule');
+var app = require('express');
 
-
-var UserController = require('./UserController');
-app.use('/users', UserController);
+//var UserController = require('./UserController');
+//app.use('/users', UserController);
 
 var vfs = require('vfs-local')({
   root: __dirname + "/public/"
@@ -26,6 +26,7 @@ var server = http.createServer(stack(
       
       var inputtext = "";
       var output = ""; 
+      var repocount=0;
       req.setEncoding("utf8");
       req.on("data", function (chunk) {
         inputtext += chunk;
@@ -33,7 +34,12 @@ var server = http.createServer(stack(
       });
       req.on("end", function() {
         
-        var dataPromise = gitmodule(inputtext);
+        var repocountPromise = gitmodule.getUserRepoCount(inputtext);
+        repocountPromise.then(function(result){
+          console.log(result["public_repos"]);
+          repocount = result["public_repos"];
+        });
+        var dataPromise = gitmodule.gitmodule(inputtext);
         dataPromise.then(function(result) {
           var stringresult = JSON.stringify(result);
           res.writeHead(200, {
