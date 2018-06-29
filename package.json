@@ -1,0 +1,23 @@
+{
+  "name": "hawkpr",
+  "version": "0.0.0",
+  "description": "A simple website that queries github for pull request stats.",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": "",
+  "author": "Mithun Singh",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "creationix": "~0.3.1",
+    "dotenv": "^6.0.0",
+    "https": "^1.0.0",
+    "request": "^2.87.0",
+    "stack": "~0.1.0",
+    "vfs-http-adapter": "~0.2.3",
+    "vfs-local": "~0.3.11"
+  }
+}
