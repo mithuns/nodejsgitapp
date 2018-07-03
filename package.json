@@ -1,24 +1,21 @@
 {
-  "name": "hawkpr",
+  "name": "myejsapp",
   "version": "0.0.0",
-  "description": "A simple website that queries github for pull request stats.",
-  "main": " ",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node ./bin/www"
   },
-  "repository": "",
-  "author": "Mithun Singh",
-  "license": "MIT",
-  "readmeFilename": "README.md",
   "dependencies": {
-    "creationix": "~0.3.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
     "dotenv": "^6.0.0",
+    "ejs": "~2.5.7",
     "express": "^4.16.3",
+    "http-errors": "~1.6.2",
     "https": "^1.0.0",
+    "morgan": "~1.9.0",
+    "parse-link-header": "^1.0.1",
     "request": "^2.87.0",
-    "stack": "~0.1.0",
-    "vfs-http-adapter": "~0.2.3",
-    "vfs-local": "~0.3.11"
+    "sync-request": "^6.0.0"
   }
 }

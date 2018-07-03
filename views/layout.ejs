@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+  </head>
+  <body>
+    <h1><%= header %></h1>
+    <p>Welcome to this cute little app</p>
+
+    <table id='datatable'>
+        <tr>
+          <th>Repo Name</th><th>Open PR Count</th>
+        </tr>
+      
+        <% for (var i = 0; i < userrepodata.length; i++) { %>
+          <tr>
+            <td><a href= <%= userrepodata[i].html_url %>><%= userrepodata[i].name %></a></td>
+            <td><%= userrepodata[i].open_pull_count %></td>
+          </tr>    
+        <% } %>
+      </table>
+      <div>
+        <button id ='prevPage'  value= <%= userrepodata.prevlink %> >PrevPage</button>
+        <button id='nextPage'   value= <%=  userrepodata.nextlink %> >NextPage</button>
+      </div>
+      <footer>
+            <% include ./footer %>
+      </footer>
+      <script>
+          $('#prevPage').on('click',(function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            if(!$(this).attr("value")){
+              $('#prevPage').disabled=true;
+              alert('No prev page found.');
+              return;
+            }
+            $.ajax({
+            contentType: "application/json",
+            url: 'prev',
+            data: {prevlink:$(this).attr("value") }
+        }).done(function(results){
+          console.log(results);
+          //$('html').html(results);
+          document.open();
+          document.write(results);
+          document.close();
+        }).fail(function(err){
+          console.log(err);
+        });
+      }));
+          
+      $('#nextPage').on('click',(function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            if(!$(this).attr("value")){
+              $('#nextPage').disabled=true;
+              alert('No next page found.');
+              return;
+            }
+            $.ajax({
+            contentType: "application/json",
+            url: 'next',
+            data: {nextlink:$(this).attr("value") }
+        }).done(function(results){
+          console.log(results);
+          document.open();
+          document.write(results);
+          document.close();
+        }).fail(function(err){
+          console.log(err);
+        });
+      }));
+        </script>
+  </body>
+</html>
