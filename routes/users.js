@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var repos = require('./repos.js');
+var repos = require('./core.js');
 
 
 var title = 'HawkPR application'; 
@@ -11,44 +11,12 @@ router.get('/', function(req, res, next) {
   res.send('Please pick a user');
 });
 
-router.get('/prev', async(req, res, next) =>{
+router.get('/:userid',  async(req, res, next) =>{
   try{
-    var prevlink = req.query.prevlink;
-    prevlink = decodeURI(prevlink);
-    var userrepodata =  await repos.getPage('',prevlink);
-    
-    res.render("layout", {
-        title: title,
-        header: header,
-        userrepodata:userrepodata
-      });
-  }catch (err){
-    process.stdout.write(err);
-    next(err);
-  }
-});
-
-router.get('/next', async(req, res, next)=> {
-  try{
-    var nextlink = req.query.nextlink;
-    nextlink = decodeURI(nextlink);
-    console.log(nextlink);
-    var userrepodata =  await repos.getPage('',nextlink);
-    
-    res.render("layout", {
-        title: title,
-        header: header,
-        userrepodata:userrepodata
-      });
-  }catch (err){
-    process.stdout.write(err);
-    next(err);
-  }
-});
-
-router.get('/:userid',  async (req, res, next) =>{
-  try{
-    var userrepodata =  await repos.getPage(req.params.userid);
+    var userrepodata =   [];
+    await repos.core(req.params.userid).then(function(results){
+      userrepodata = results.sort(sortByOpenPullCount);
+    });
     
     res.render("layout", {
         title: title,
@@ -61,8 +29,8 @@ router.get('/:userid',  async (req, res, next) =>{
   }  
 });
 
-function getData(userid, url){
-  
-}
-
 module.exports = router;
+
+function sortByOpenPullCount (repoA, repoB){
+  return repoB.opencount - repoA.opencount;
+}

@@ -1,15 +1,12 @@
 body {
-  padding: 50px;
+ height: 100%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 100px;
-  width: 100%;
+.footer,
+.push {
+  height: 50 px;
 }
