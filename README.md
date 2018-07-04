@@ -1,2 +1,0 @@
-# nodejsgitapp
-just something trivial
