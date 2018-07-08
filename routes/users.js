@@ -32,5 +32,5 @@ router.get('/:userid',  async(req, res, next) =>{
 module.exports = router;
 
 function sortByOpenPullCount (repoA, repoB){
-  return repoB.opencount - repoA.opencount;
+  return repoB['opencount'] - repoA['opencount'];
 }
